@@ -17,4 +17,9 @@ public class Thief extends Character {
     public int getAttack() {
         return (int) ((this.getStrength() * 0.25) + (this.getDexterity()) + (this.getIntelligence() * 0.25));
     }
+
+    @Override
+    public int getSpeed() {
+        return (int) (this.getDexterity() * 0.8);
+    }
 }

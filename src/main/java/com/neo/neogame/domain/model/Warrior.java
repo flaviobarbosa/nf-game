@@ -20,4 +20,9 @@ public class Warrior extends Character {
     public int getAttack() {
         return (int) ((this.getStrength() * 0.8) + (this.getDexterity() * 0.2));
     }
+
+    @Override
+    public int getSpeed() {
+        return (int) ((this.getDexterity() * 0.6) + (this.getIntelligence() * 0.2));
+    }
 }

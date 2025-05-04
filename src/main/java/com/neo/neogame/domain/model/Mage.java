@@ -17,4 +17,9 @@ public class Mage extends Character {
     public int getAttack() {
         return (int) ((this.getStrength() * 0.2) + (this.getDexterity() * 0.2) + (this.getIntelligence() * 1.2));
     }
+
+    @Override
+    public int getSpeed() {
+        return (int) ((this.getDexterity() * 0.4) + (this.getStrength() * 0.1));
+    }
 }

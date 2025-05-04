@@ -19,6 +19,7 @@ public class CharacterMapper {
                 .intelligence(character.getIntelligence())
                 .stats(character.getStats().toString().toLowerCase())
                 .attack(character.getAttack())
+                .speed(character.getSpeed())
                 .build();
     }
 

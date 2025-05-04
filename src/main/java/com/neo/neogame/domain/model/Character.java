@@ -21,5 +21,6 @@ public abstract class Character {
     private Stats stats;
 
     public abstract int getAttack();
+    public abstract int getSpeed();
 
 }

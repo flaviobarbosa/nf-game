@@ -18,6 +18,7 @@ public class CharacterMapper {
                 .dexterity(character.getDexterity())
                 .intelligence(character.getIntelligence())
                 .stats(character.getStats().toString().toLowerCase())
+                .attack(character.getAttack())
                 .build();
     }
 

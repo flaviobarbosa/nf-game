@@ -13,4 +13,8 @@ public class Thief extends Character {
         super(UUID.randomUUID(), name, Job.THIEF, hp, strength, dexterity, intelligence, Stats.ALIVE);
     }
 
+    @Override
+    public int getAttack() {
+        return (int) ((this.getStrength() * 0.25) + (this.getDexterity()) + (this.getIntelligence() * 0.25));
+    }
 }

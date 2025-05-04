@@ -13,4 +13,8 @@ public class Mage extends Character {
         super(UUID.randomUUID(), name, Job.MAGE, hp, strength, dexterity, intelligence, Stats.ALIVE);
     }
 
+    @Override
+    public int getAttack() {
+        return (int) ((this.getStrength() * 0.2) + (this.getDexterity() * 0.2) + (this.getIntelligence() * 1.2));
+    }
 }

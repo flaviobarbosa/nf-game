@@ -20,4 +20,6 @@ public abstract class Character {
     private int intelligence;
     private Stats stats;
 
+    public abstract int getAttack();
+
 }

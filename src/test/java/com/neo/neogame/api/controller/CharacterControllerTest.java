@@ -49,6 +49,7 @@ class CharacterControllerTest {
                 .dexterity(Warrior.dexterity)
                 .intelligence(Warrior.intelligence)
                 .stats(Stats.ALIVE.toString())
+                .attack(9)
                 .build();
 
         when(characterService.create(Mockito.any())).thenReturn(characterDTO);
@@ -63,7 +64,8 @@ class CharacterControllerTest {
                 .andExpect(jsonPath("$.strength").value(characterDTO.getStrength()))
                 .andExpect(jsonPath("$.dexterity").value(characterDTO.getDexterity()))
                 .andExpect(jsonPath("$.intelligence").value(characterDTO.getIntelligence()))
-                .andExpect(jsonPath("$.stats").value(characterDTO.getStats()));
+                .andExpect(jsonPath("$.stats").value(characterDTO.getStats()))
+                .andExpect(jsonPath("$.attack").value(9));
     }
 
     @Test

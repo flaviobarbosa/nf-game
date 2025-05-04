@@ -15,4 +15,9 @@ public class Warrior extends Character {
     public Warrior(String name) {
         super(UUID.randomUUID(), name, Job.WARRIOR, hp, strength, dexterity, intelligence, Stats.ALIVE);
     }
+
+    @Override
+    public int getAttack() {
+        return (int) ((this.getStrength() * 0.8) + (this.getDexterity() * 0.2));
+    }
 }

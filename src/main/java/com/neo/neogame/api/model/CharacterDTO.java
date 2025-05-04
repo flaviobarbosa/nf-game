@@ -17,5 +17,6 @@ public class CharacterDTO {
     private int dexterity;
     private int intelligence;
     private String stats;
+    private int attack;
 
 }

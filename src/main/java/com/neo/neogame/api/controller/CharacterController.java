@@ -2,11 +2,14 @@ package com.neo.neogame.api.controller;
 
 import com.neo.neogame.api.model.CharacterDTO;
 import com.neo.neogame.api.model.NewCharacterDTO;
+import com.neo.neogame.api.model.TinyCharacterDTO;
 import com.neo.neogame.domain.service.CharacterService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/character")
@@ -21,4 +24,8 @@ public class CharacterController {
         return characterService.create(newCharacterDTO);
     }
 
+    @GetMapping
+    public List<TinyCharacterDTO> getAll() {
+        return characterService.getAll();
+    }
 }

@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/character")
@@ -27,5 +28,10 @@ public class CharacterController {
     @GetMapping
     public List<TinyCharacterDTO> getAll() {
         return characterService.getAll();
+    }
+
+    @GetMapping("/{id}")
+    public CharacterDTO getDetails(@PathVariable UUID id) {
+        return characterService.getDetails(id);
     }
 }

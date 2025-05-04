@@ -28,6 +28,22 @@ public class GlobalExceptionHandler {
                 .body(exceptionDTO);
     }
 
+    @ExceptionHandler(CharacterNotFoundException.class)
+    public ResponseEntity<ExceptionDTO> handleCharacterNotFound(CharacterNotFoundException ex) {
+        var httpStatus = HttpStatus.NOT_FOUND;
+
+        var exceptionDTO = ExceptionDTO.builder()
+                .timestamp(OffsetDateTime.now())
+                .httpStatus(httpStatus.value())
+                .error(httpStatus.getReasonPhrase())
+                .messages(Arrays.asList(ex.getMessage()))
+                .build();
+
+        return ResponseEntity
+                .status(httpStatus)
+                .body(exceptionDTO);
+    }
+
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ExceptionDTO> handleValidationErrors(MethodArgumentNotValidException ex) {
         var messages = ex.getBindingResult().getFieldErrors().stream()

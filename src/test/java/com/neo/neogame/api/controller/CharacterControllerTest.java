@@ -3,11 +3,11 @@ package com.neo.neogame.api.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.neo.neogame.api.model.CharacterDTO;
 import com.neo.neogame.api.model.NewCharacterDTO;
-import com.neo.neogame.domain.exception.InvalidJobException;
 import com.neo.neogame.domain.model.Job;
 import com.neo.neogame.domain.model.Stats;
 import com.neo.neogame.domain.model.Warrior;
 import com.neo.neogame.domain.service.CharacterService;
+import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +18,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.UUID;
 
-import static org.mockito.ArgumentMatchers.any;
+import static com.neo.neogame.api.model.NewCharacterDTO.*;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -38,7 +38,7 @@ class CharacterControllerTest {
 
     @Test
     void shouldCreateCharacterWithValidJob() throws Exception {
-        NewCharacterDTO newCharacterDTO = new NewCharacterDTO("Warrior Name", Job.WARRIOR.toString());
+        NewCharacterDTO newCharacterDTO = new NewCharacterDTO("Thatelch", Job.WARRIOR.toString());
 
         CharacterDTO characterDTO = CharacterDTO.builder()
                 .id(UUID.randomUUID())
@@ -70,18 +70,50 @@ class CharacterControllerTest {
     void shouldNotCreateCharacterWithInvalidJob() throws Exception {
         var input = """
                 {
-                    "name": "Character Name",
+                    "name": "Thatelch",
                     "job": "ninja"
                 }
                 """;
-
-        when(characterService.create(any())).thenThrow(new InvalidJobException("The job ninja is invalid"));
 
         mockMvc.perform(post("/character")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(input))
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.httpStatus").value(400))
-                .andExpect(jsonPath("$.message").value("The job ninja is invalid"));
+                .andExpect(jsonPath("$.messages", Matchers.hasItem(INVALID_JOB_MESSAGE)));
+    }
+
+    @Test
+    void shouldNotCreateCharacterWithInvalidCharactersInName() throws Exception {
+        var input = """
+                {
+                    "name": "John Doe",
+                    "job": "mage"
+                }
+                """;
+
+        mockMvc.perform(post("/character")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(input))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.httpStatus").value(400))
+                .andExpect(jsonPath("$.messages", Matchers.hasItem(NAME_PATTERN_MESSAGE)));
+    }
+
+    @Test
+    void shouldNotCreateCharacterWithInvalidNameLength() throws Exception {
+        var input = """
+                {
+                    "name": "Joe",
+                    "job": "mage"
+                }
+                """;
+
+        mockMvc.perform(post("/character")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(input))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.httpStatus").value(400))
+                .andExpect(jsonPath("$.messages", Matchers.hasItem(NAME_LENGTH_MESSAGE)));
     }
 }

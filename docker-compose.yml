@@ -1,7 +1,16 @@
 version: '3.9'
 
 services:
-  neogame-backend:
-    build: .
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
     ports:
-      - '8080:8080'
+      - "8080:8080"
+    command: ["./mvnw", "spring-boot:run"]
+
+  tests:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: ["./mvnw", "test"]

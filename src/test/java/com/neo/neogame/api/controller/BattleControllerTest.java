@@ -45,7 +45,7 @@ class BattleControllerTest {
                 }
                 """, idPlayer1, idPlayer2);
 
-        mockMvc.perform(post("/battle")
+        mockMvc.perform(post("/battles")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(json))
                 .andExpect(status().isOk())

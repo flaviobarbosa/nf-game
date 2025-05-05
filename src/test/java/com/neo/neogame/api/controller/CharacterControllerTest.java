@@ -55,7 +55,7 @@ class CharacterControllerTest {
 
         when(characterService.create(Mockito.any())).thenReturn(characterDTO);
 
-        mockMvc.perform(post("/character")
+        mockMvc.perform(post("/characters")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(newCharacterDTO)))
                 .andExpect(status().isCreated())
@@ -79,7 +79,7 @@ class CharacterControllerTest {
                 }
                 """;
 
-        mockMvc.perform(post("/character")
+        mockMvc.perform(post("/characters")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(input))
                 .andExpect(status().isBadRequest())
@@ -96,7 +96,7 @@ class CharacterControllerTest {
                 }
                 """;
 
-        mockMvc.perform(post("/character")
+        mockMvc.perform(post("/characters")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(input))
                 .andExpect(status().isBadRequest())
@@ -113,7 +113,7 @@ class CharacterControllerTest {
                 }
                 """;
 
-        mockMvc.perform(post("/character")
+        mockMvc.perform(post("/characters")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(input))
                 .andExpect(status().isBadRequest())

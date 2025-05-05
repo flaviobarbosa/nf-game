@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/character")
+@RequestMapping("/characters")
 @RequiredArgsConstructor
 public class CharacterController {
 

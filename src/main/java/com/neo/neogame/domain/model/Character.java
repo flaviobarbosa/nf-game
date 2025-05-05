@@ -23,4 +23,12 @@ public abstract class Character {
     public abstract int getAttack();
     public abstract int getSpeed();
 
+    public boolean isDead() {
+        return this.stats.equals(Stats.DEAD);
+    }
+
+    public boolean isAlive() {
+        return this.stats.equals(Stats.ALIVE);
+    }
+
 }

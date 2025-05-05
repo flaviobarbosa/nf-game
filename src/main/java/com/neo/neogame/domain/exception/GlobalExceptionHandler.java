@@ -44,6 +44,22 @@ public class GlobalExceptionHandler {
                 .body(exceptionDTO);
     }
 
+    @ExceptionHandler(InvalidBattleException.class)
+    public ResponseEntity<ExceptionDTO> handleInvalidBattleException(InvalidBattleException ex) {
+        var httpStatus = HttpStatus.BAD_REQUEST;
+
+        var exceptionDTO = ExceptionDTO.builder()
+                .timestamp(OffsetDateTime.now())
+                .httpStatus(httpStatus.value())
+                .error(httpStatus.getReasonPhrase())
+                .messages(Arrays.asList(ex.getMessage()))
+                .build();
+
+        return ResponseEntity
+                .status(httpStatus)
+                .body(exceptionDTO);
+    }
+
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ExceptionDTO> handleValidationErrors(MethodArgumentNotValidException ex) {
         var messages = ex.getBindingResult().getFieldErrors().stream()
